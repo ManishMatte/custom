@@ -1,10 +1,11 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller"
+    "sap/ui/core/mvc/Controller",
+    "sap/m/MessageBox",
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller) {
+    function (Controller,MessageBox) {
         "use strict";
 
         return Controller.extend("createform.controller.CreateForm", {
@@ -137,24 +138,40 @@ sap.ui.define([
                         "master_ID": parseInt(incidentTypeKeys[i])
                     });
                 }
-                payload.employees = oModel.getProperty('/payload/Employees');
+                var injuryType = [];
+                const Employees = oModel.getProperty('/payload/Employees');
+                for (var i = 0; i<Employees.length; i++) {
+
+                    for (var j = 0; j<Employees[i].injuryTypeKeys.length; j++) {
+
+                        injuryType.push({
+                            "master_ID": parseInt(Employees[i].injuryTypeKeys[j])
+                        })
+
+                    }
+
+                    payload.employees.push({
+                        "name":Employees[i].name,
+                        "location":Employees[i].location,
+                        "injuryType":injuryType
+                    })
+
+                    injuryType = [];
+                }
                 payload.witness = oModel.getProperty('/payload/Witness');
 
-                debugger;
-                
+                $.ajax({
+                    type: "POST",
+                    url: "/odata/v4/ui/Incidents",
+                    data: JSON.stringify(payload),
+                    success: function (response, statusText, xhrToken) {
 
-                // $.ajax({
-                //     type: "POST",
-                //     url: "odata/v4/ui/Incidents",
-                //     data: JSON.stringify(payload),
-                //     success: function (response, statusText, xhrToken) {
+                        MessageBox.success("Incident Submitted Successfully.");
+                        // that.clearModel();
 
-                //         MessageBox.success("Incident Submitted Successfully.");
-                //         // that.clearModel();
-
-                //     },
-                //     contentType: "application/json"
-                // });
+                    },
+                    contentType: "application/json"
+                });
 
             }
         });

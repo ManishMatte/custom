@@ -47,7 +47,12 @@ Content-Type: application/json
     ],
     "employees":[{
         "name":"manish",
-        "location":"pune"
+        "location":"pune",
+        "injuryType":[
+            {
+                "master_ID":3
+            }
+        ]
     }],
     "witness":[
         {

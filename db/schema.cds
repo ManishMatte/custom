@@ -22,6 +22,12 @@ entity Inc_Employees : cuid , managed{
     name:String(100);
     location:String(100);
     incident : Association to Incidents;
+    injuryType: Composition of many Inc_InjuryTypes on injuryType.employee = $self;
+}
+
+entity Inc_InjuryTypes : cuid {
+    master_ID: Int32;
+    employee: Association to Inc_Employees;
 }
 
 entity Inc_IncidentTypes : cuid {
