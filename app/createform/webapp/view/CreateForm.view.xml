@@ -1,0 +1,208 @@
+<mvc:View
+    controllerName="createform.controller.CreateForm"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+>
+    <Page
+        id="page"
+        title="{i18n>title}"
+    >
+        <f:SimpleForm
+            class="sapUiSmallMargin"
+            editable="true"
+            layout="ResponsiveGridLayout"
+            labelSpanXL="3"
+            labelSpanL="3"
+            labelSpanM="3"
+            labelSpanS="12"
+            adjustLabelSpan="false"
+            emptySpanXL="4"
+            emptySpanL="4"
+            emptySpanM="4"
+            emptySpanS="0"
+            columnsXL="1"
+            columnsL="1"
+            columnsM="1"
+            singleContainerFullSize="false"
+        >
+            <f:content>
+                <Label text="Incident Type" />
+                <MultiComboBox
+                    selectedKeys="{oModel>/payload/Incident/incidentKeys}"
+                    items="{
+                    path: 'oModel>/incidentTypes',
+                    sorter: { path: 'Name' }
+                }"
+                >
+                    <core:Item
+                        key="{oModel>key}"
+                        text="{oModel>text}"
+                    />
+                </MultiComboBox>
+                <Label text="Incident Location" />
+                <Input value="{oModel>/Incident/location}" />
+                <Label text="Injury type" />
+            </f:content>
+        </f:SimpleForm>
+
+        <Panel
+            width="auto"
+            class="sapUiResponsiveMargin"
+        >
+            <headerToolbar>
+                <OverflowToolbar>
+                    <Title text="Employee Injury Details Section" />
+                    <ToolbarSpacer />
+                    <Button
+                        type="Accept"
+                        text="Add Employee"
+                        press="onPressAddEmployee"
+                    />
+                </OverflowToolbar>
+            </headerToolbar>
+            <content>
+                <VBox
+                    items="{oModel>/payload/Employees}"
+                    class="sapUiSmallMargin"
+                >
+                    <CustomListItem>
+                        <Panel
+                            width="auto"
+                            class="sapUiResponsiveMargin"
+                        >
+                            <headerToolbar>
+                                <OverflowToolbar>
+                                    <Title text="Employee Injury Details" />
+                                    <ToolbarSpacer />
+                                    <Button
+                                        type="Reject"
+                                        icon="sap-icon://delete"
+                                        press="onPressDeleteEmployee"
+                                    />
+                                </OverflowToolbar>
+                            </headerToolbar>
+                            <content>
+                                <f:SimpleForm
+                                    editable="true"
+                                    layout="ResponsiveGridLayout"
+                                    labelSpanXL="3"
+                                    labelSpanL="3"
+                                    labelSpanM="3"
+                                    labelSpanS="12"
+                                    adjustLabelSpan="false"
+                                    emptySpanXL="4"
+                                    emptySpanL="4"
+                                    emptySpanM="4"
+                                    emptySpanS="0"
+                                    columnsXL="1"
+                                    columnsL="1"
+                                    columnsM="1"
+                                    singleContainerFullSize="false"
+                                >
+                                    <f:content>
+                                        <Label text="Employee Name" />
+                                        <Input value="{oModel>name}" />
+                                        <Label text="Injury Location" />
+                                        <Input value="{oModel>location}" />
+                                        <Label text="Injury type" />
+                                        <MultiComboBox
+                                            selectedKeys="{oModel>injuryTypeKeys}"
+                                            items="{
+                    path: 'oModel>/injuryType',
+                    sorter: { path: 'Name' }
+                }"
+                                        >
+                                            <core:Item
+                                                key="{oModel>key}"
+                                                text="{oModel>text}"
+                                            />
+                                        </MultiComboBox>
+                                    </f:content>
+                                </f:SimpleForm>
+                            </content>
+                        </Panel>
+                    </CustomListItem>
+                </VBox>
+            </content>
+        </Panel>
+
+        <Panel
+            width="auto"
+            class="sapUiResponsiveMargin"
+        >
+            <headerToolbar>
+                <OverflowToolbar>
+                    <Title text="Witness Section" />
+                    <ToolbarSpacer />
+                    <Button
+                        type="Accept"
+                        text="Add Witness"
+                        press="onPressAddWitness"
+                    />
+                </OverflowToolbar>
+            </headerToolbar>
+            <content>
+                <IconTabBar
+                    items="{oModel>/payload/Witness}"
+                    class="sapUiResponsiveContentPadding"
+                >
+                    <items>
+                        <IconTabFilter
+                            text="{= ${oModel>name} !== '' ? ${oModel>name} : 'Witness Details' }"
+                            icon="sap-icon://person-placeholder"
+                            key="info"
+                        >
+                            <VBox>
+                                <HBox justifyContent="End">
+                                    <Button
+                                        type="Reject"
+                                        icon="sap-icon://delete"
+                                        press="onPressDeleteWitness"
+                                    />
+                                </HBox>
+
+                                <f:SimpleForm
+                                    class="sapUiSmallMargin"
+                                    editable="true"
+                                    layout="ResponsiveGridLayout"
+                                    labelSpanXL="3"
+                                    labelSpanL="3"
+                                    labelSpanM="3"
+                                    labelSpanS="12"
+                                    adjustLabelSpan="false"
+                                    emptySpanXL="4"
+                                    emptySpanL="4"
+                                    emptySpanM="4"
+                                    emptySpanS="0"
+                                    columnsXL="1"
+                                    columnsL="1"
+                                    columnsM="1"
+                                    singleContainerFullSize="false"
+                                >
+                                    <f:content>
+                                        <Label text="Name" />
+                                        <Input value="{oModel>name}" />
+                                        <Label text="Statement" />
+                                        <TextArea
+                                            id="TextArea"
+                                            placeholder="Enter text"
+                                            change="handleChange"
+                                            showExceededText="true"
+                                            value="{oModel>statement}"
+                                            rows="4"
+                                            ariaLabelledBy="TextAreaLabel"
+                                        />
+                                    </f:content>
+                                </f:SimpleForm>
+                            </VBox>
+                        </IconTabFilter>
+                    </items>
+                </IconTabBar>
+            </content>
+        </Panel>
+    </Page>
+</mvc:View>

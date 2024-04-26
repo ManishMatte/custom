@@ -1,0 +1,33 @@
+###
+
+POST http://localhost:37471/odata/v4/srv/calculate
+Content-Type: application/json
+
+{
+    "input": {
+        "test":"test123"
+    }
+}
+
+###
+
+
+POST http://localhost:37471/rest/srv/calculate
+Content-Type: application/json
+
+{
+    "input":{
+        "test":"test123"
+    }
+}
+
+####
+
+
+POST http://localhost:46571/odata/v4/srv/student
+Content-Type: application/json
+
+{
+    "name" : "Manish",
+    "gender":  "M"
+}
