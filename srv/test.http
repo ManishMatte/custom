@@ -31,3 +31,28 @@ Content-Type: application/json
     "name" : "Manish",
     "gender":  "M"
 }
+
+
+###
+
+POST http://localhost:4004/odata/v4/ui/Incidents
+Content-Type: application/json
+
+{
+    "location":"Pune",
+    "incidentType":[
+        {
+            "master_ID":6
+        }
+    ],
+    "employees":[{
+        "name":"manish",
+        "location":"pune"
+    }],
+    "witness":[
+        {
+            "name":"witness",
+            "statement":"statement"
+        }
+    ]
+}

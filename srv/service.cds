@@ -16,11 +16,6 @@ service Srv {
 
 service UIService {
 
-    
-
-
-    entity student as projection on db.Student;
-
-
+    entity Incidents as projection on db.Incidents;
 
 }

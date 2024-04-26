@@ -120,6 +120,42 @@ sap.ui.define([
                 Witness.splice(index,1);
                 oModel.setProperty('/payload/Witness', Witness);
 
+            },
+            onPressSubmit : function(){
+
+                var payload = {
+                    incidentType:[],
+                    employees:[],
+                    witness:[]
+                };
+                const oModel = this.getView().getModel('oModel');
+                payload.location = oModel.getProperty('/payload/Incident/location');
+                const incidentTypeKeys = oModel.getProperty('/payload/Incident/incidentKeys');
+
+                for(var i = 0; i<incidentTypeKeys.length; i++){
+                    payload.incidentType.push({
+                        "master_ID": parseInt(incidentTypeKeys[i])
+                    });
+                }
+                payload.employees = oModel.getProperty('/payload/Employees');
+                payload.witness = oModel.getProperty('/payload/Witness');
+
+                debugger;
+                
+
+                // $.ajax({
+                //     type: "POST",
+                //     url: "odata/v4/ui/Incidents",
+                //     data: JSON.stringify(payload),
+                //     success: function (response, statusText, xhrToken) {
+
+                //         MessageBox.success("Incident Submitted Successfully.");
+                //         // that.clearModel();
+
+                //     },
+                //     contentType: "application/json"
+                // });
+
             }
         });
     });

@@ -44,7 +44,7 @@
                     />
                 </MultiComboBox>
                 <Label text="Incident Location" />
-                <Input value="{oModel>/Incident/location}" />
+                <Input value="{oModel>/payload/Incident/location}" />
                 <Label text="Injury type" />
             </f:content>
         </f:SimpleForm>
@@ -204,5 +204,11 @@
                 </IconTabBar>
             </content>
         </Panel>
+        <footer>
+            <OverflowToolbar>
+                <ToolbarSpacer />
+                <Button text="Submit" type="Accept" press="onPressSubmit" />
+            </OverflowToolbar>
+        </footer>
     </Page>
 </mvc:View>
